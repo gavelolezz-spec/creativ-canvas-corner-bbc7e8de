@@ -1,16 +1,45 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState, useEffect, useCallback } from "react";
+import Sidebar from "@/components/Sidebar";
+import HomeView from "@/components/HomeView";
+import BookmarksView from "@/components/BookmarksView";
+import HistoryView from "@/components/HistoryView";
+import SettingsView from "@/components/SettingsView";
+import CommandPalette from "@/components/CommandPalette";
 
-// IMPORTANT: Fully REPLACE this with your own code
-const PlaceholderIndex = () => {
-  // PLACEHOLDER: Replace this entire return statement with the user's app.
-  // The inline background color is intentionally not part of the design system.
+type View = "home" | "bookmarks" | "history" | "settings";
+
+const Index = () => {
+  const [activeView, setActiveView] = useState<View>("home");
+  const [cmdOpen, setCmdOpen] = useState(false);
+
+  const handleKeyDown = useCallback((e: KeyboardEvent) => {
+    if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+      e.preventDefault();
+      setCmdOpen((prev) => !prev);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [handleKeyDown]);
+
   return (
-    <div className="flex min-h-screen items-center justify-center" style={{ backgroundColor: '#fcfbf8' }}>
-      <img data-lovable-blank-page-placeholder="REMOVE_THIS" src="/placeholder.svg" alt="Your app will live here!" />
+    <div className="flex min-h-screen bg-background">
+      <Sidebar
+        activeView={activeView}
+        onViewChange={setActiveView}
+        onCommandPalette={() => setCmdOpen(true)}
+      />
+      <main className="flex-1 ml-12">
+        {activeView === "home" && <HomeView />}
+        {activeView === "bookmarks" && <BookmarksView />}
+        {activeView === "history" && <HistoryView />}
+        {activeView === "settings" && <SettingsView />}
+      </main>
+      <CommandPalette open={cmdOpen} onClose={() => setCmdOpen(false)} />
     </div>
   );
 };
-
-const Index = PlaceholderIndex;
 
 export default Index;
