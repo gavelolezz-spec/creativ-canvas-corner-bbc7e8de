@@ -15,18 +15,17 @@ const BookmarksView = ({ onOpenSite }: { onOpenSite: (url: string) => void }) =>
       <h1 className="text-2xl font-semibold text-foreground mb-6">Bookmarks</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
         {bookmarks.map((bm) => (
-          <a
+          <button
             key={bm.name}
-            href={bm.url}
-            target="_top"
-            className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:bg-surface-hover hover:border-primary/30 transition-all group"
+            onClick={() => onOpenSite(bm.url)}
+            className="flex items-center gap-3 p-4 rounded-xl bg-card border border-border hover:bg-surface-hover hover:border-primary/30 transition-all group text-left"
           >
             <span className="text-2xl group-hover:scale-110 transition-transform">{bm.icon}</span>
             <div>
               <div className="text-sm font-medium text-foreground">{bm.name}</div>
               <div className="text-xs text-muted-foreground">{bm.domain}</div>
             </div>
-          </a>
+          </button>
         ))}
       </div>
     </div>

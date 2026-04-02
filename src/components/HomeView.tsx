@@ -66,10 +66,9 @@ const HomeView = ({ onOpenSite }: { onOpenSite: (url: string) => void }) => {
         </div>
         <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
           {quickApps.map((app) => (
-            <a
+            <button
               key={app.name}
-              href={app.url}
-              target="_top"
+              onClick={() => onOpenSite(app.url)}
               className="flex flex-col items-center gap-1.5 p-3 rounded-xl bg-card border border-border hover:bg-surface-hover hover:border-primary/30 transition-all group"
             >
               <span className="text-xl group-hover:scale-110 transition-transform">
@@ -78,7 +77,7 @@ const HomeView = ({ onOpenSite }: { onOpenSite: (url: string) => void }) => {
               <span className="text-xs text-muted-foreground group-hover:text-foreground transition-colors">
                 {app.name}
               </span>
-            </a>
+            </button>
           ))}
         </div>
       </div>
