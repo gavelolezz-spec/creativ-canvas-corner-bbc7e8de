@@ -12,7 +12,7 @@ const quickApps = [
   { name: "Maps", icon: "🗺️", url: "https://maps.google.com/" },
 ];
 
-const HomeView = () => {
+const HomeView = ({ onOpenSite }: { onOpenSite: (url: string) => void }) => {
   const [time, setTime] = useState(new Date());
 
   useEffect(() => {
