@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/creativ-canvas-corner-bbc7e8de/",
+  base: mode === "production" ? "/creativ-canvas-corner-bbc7e8de/" : "/",
   server: {
     host: "::",
     port: 8080,
